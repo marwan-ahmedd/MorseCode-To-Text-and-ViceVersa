@@ -62,7 +62,4 @@ int main()
 	
 	return 0;
 	// code: .... . .-.. .-.. ---
-	// nope;
-	// nope nope
-	
 }
