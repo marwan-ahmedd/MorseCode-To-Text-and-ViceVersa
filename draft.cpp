@@ -12,18 +12,36 @@ map < char, string>
 		{'?', "..--.."}, {'/', "-..-."}, {'-', "-....-"}, {'(', "-.--."}, {')', "-.--.-"}
 	};
 
-void toDecrypt()
+int size_of_message(string word)
+{
+    int size = 1;
+    for (int i = 0; i < word.length(); i++)
+    {
+        if (isspace(word[i])){
+            if (isspace(word[i+1])){
+                size++;
+                i++;
+            }else{
+                size++;
+            }
+        }
+    }
+    return size;
+}
+
+
+void toDecrypt(string word)
 {
     int m = 0;
-    const int size = 5;
-    string word, arr[size], decryption;
-    word = "....   .   .--.";
+    bool state = 0;
+    string arr[], decryption;
+    
     
     for (int i = 0; i < word.length(); i++)
     {
         if (isspace(word[i])){
             if (isspace(word[i+1])){
-                m++;
+                m++;   
                 arr[m] += "  ";
                 i++; 
             }else{
@@ -34,30 +52,39 @@ void toDecrypt()
             arr[m] += word[i];
         }
     }
-    int state = 1;
-    for (int k = 0; k < size; k++)
-    {
-        for (auto item : data)
-        {
-            if (arr[k] != item.second){
-                state = 0;
-                // break;
-            }
-            else{
-                state = 1;
-            }
-        if (state == 0){
-            cout << "Wrong Input" << endl;
-            break;
-        }
-        }
+    
 
-    }
+//     for (int k = 0; k < size; k++)
+//     {
+//         for (auto item : data)
+//         {
+//             if (arr[k] == item.second){
+//                 state = 1;
+//                 decryption += item.first;
+//                 break;
+//             }else{
+//                 state = 0;
+//             }         
+//         }
+//         if (state == 0){
+//             string new_message;
+//             cout << "Invalid input. Enter a message to decrypt: ";
+//             cin >> new_message;
+//             break;
+            
+//         }
+//     }
 
-    cout << decryption << endl;
+//     cout << "Decryption: " << decryption << endl;
 }
 
 int main()
 {
-    toDecrypt();
+    
+    string word;
+    word = "....   .   .--. .";
+    // cout << "Enter a message to Decrypt: ";
+    // cin >> word;
+    // toDecrypt(word);
+    size_of_message(word);
 }
