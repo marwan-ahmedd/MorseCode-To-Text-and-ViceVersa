@@ -1,3 +1,12 @@
+// FCAI – Programming 1 – 2022 - Assignment 2
+// Program Name: Morse Code Message Converter.cpp
+// Program Description: xxx xxx
+// Last Modification Date: 16/3/2022
+// Author1 and ID and Group: Marwan 20210377 A 
+// Teaching Assistant: GeeksforGeeks helped in understanding maps
+// Purpose: Cipher & Decipher messages as Morse Code
+
+
 #include <iostream>
 #include <string>
 #include <map>
