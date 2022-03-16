@@ -18,7 +18,8 @@ std::map <char, std::string> morse{
 void Encrypt(string message)
 {
     cout << "Enter a message to encrypt: ";
-    cin >> message;
+    cin.ignore();
+    getline(cin, message);
     
     for (int i = 0; i < message.length(); i++)
     {
@@ -26,7 +27,7 @@ void Encrypt(string message)
     }
     
     string encryption;
-    for (char letter : message)
+    for (auto letter : message)
     {
         encryption += morse[letter];
         encryption += " ";
@@ -35,26 +36,56 @@ void Encrypt(string message)
 }
 
 
-void Decrypt(string code)
+void Decrypt(string word)
 {
-    istringstream scin;
-    string token, decryption;
-    cout << "Enter encrypted message: ";
+    int m, size;
+    m = 0;
+    size = 1;
+    string decryption;
+    cout << "Enter encrypted message to decrypt: ";
     cin.ignore();
-    getline(cin, code);
-    scin.str(code);
-    scin >> token;
+    getline(cin, word);
+
+    for (int j = 0; j < word.length(); j++)
+    {
+        if (isspace(word[j])){
+            if (isspace(word[j+1])){
+                size++;
+                j++;
+
+            }else{
+                size++;
+            }
+        }
+    }
+
+    string arr[size];
     
-    while (scin)
+    for (int i = 0; i < word.length(); i++)
+    {
+        if (isspace(word[i])){
+            if (isspace(word[i+1])){
+                m++;
+                arr[m] += " ";
+                i += 2;
+                m++;
+            }else{
+                m++;}
+        }
+        else{
+            arr[m] += word[i];
+        }
+    }
+    
+    for (int k = 0; k < size; k++)
     {
         for (char letter = 32; letter <= 122; letter++)
         {
-            if (morse[letter] == token){
+            if (arr[k] == morse[letter]){
                 decryption += letter;
                 break;
             }
         }
-        scin >> token;    
     }
     cout << "Decryption: " << decryption << endl;
 }
