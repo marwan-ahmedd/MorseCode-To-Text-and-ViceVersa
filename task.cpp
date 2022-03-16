@@ -1,66 +1,92 @@
 #include <iostream>
+#include <string>
 #include <map>
-#include <string.h>
+#include <sstream>
 using namespace std;
 
-map < char, string> 
-	data {
-		{'a', ".-"}, {'b', "-..."}, {'c', "-.-."}, {'d', "-.."}, {'e', "."}, {'f', "..-."}, {'g', "--."},
-		{'h', "...."}, {'i', ".."}, {'j', ".---"}, {'k', "-.-"}, {'l', ".-.."}, {'m', "--"}, {'n', "-."},
-		{'o', "---"}, {'p', ".--."}, {'q', "--.-"}, {'r', ".-."}, {'s', "..."}, {'t', "-"}, {'u', "..-"},
-		{'v', "...-"}, {'w', ".--"}, {'x', "-..-"}, {'y', "-.--"}, {'z', "--.."}, {' ', "  "},
-		{'1', ".----"}, {'2', "..---"}, {'3', "...--"}, {'4', "....-"}, {'5', "....."}, {'6', "-...."}, 
-		{'7', "--..."}, {'8', "---.."}, {'9', "----."}, {'0', "-----"}, {',', "--..--"}, {'.', ".-.-.-"},
-		{'?', "..--.."}, {'/', "-..-."}, {'-', "-....-"}, {'(', "-.--."}, {')', "-.--.-"}
-	};
+std::map <char, std::string> morse{
+    {'a', ".-"}, {'b', "-..."}, {'c', "-.-."}, {'d', "-.."}, {'e', "."}, {'f', "..-."}, {'g', "--."},
+    {'h', "...."}, {'i', ".."}, {'j', ".---"}, {'k', "-.-"}, {'l', ".-.."}, {'m', "--"}, {'n', "-."},
+    {'o', "---"}, {'p', ".--."}, {'q', "--.-"}, {'r', ".-."}, {'s', "..."}, {'t', "-"}, {'u', "..-"},
+    {'v', "...-"}, {'w', ".--"}, {'x', "-..-"}, {'y', "-.--"}, {'z', "--.."}, {' ', " "},
+    {'1', ".----"}, {'2', "..---"}, {'3', "...--"}, {'4', "....-"}, {'5', "....."}, {'6', "-...."}, 
+    {'7', "--..."}, {'8', "---.."}, {'9', "----."}, {'0', "-----"}, {',', "--..--"}, {'.', ".-.-.-"},
+    {'?', "..--.."}, {'/', "-..-."}, {'-', "-....-"}, {'(', "-.--."}, {')', "-.--.-"}
+};
 
 
-void Encrypt(string word)
+void Encrypt(string message)
 {
-	string encryption;
-	encryption = "";
-	for (int i = 0; i < word.length(); i++)
-	{	
-		if (data.find(word[i]) == data.end()){
-			string newWord;
-			cout << "Invalid character/s, Enter another word/sentence to Encrypt: " << endl;
-			cin >> newWord;
-			break;
-			Encrypt(newWord);
-		}
-		else{
-            if (isspace(word[i])){
-				encryption += data[word[i]];
-			}
-			else{
-				encryption += data[word[i]];
-				encryption += " ";
-			}
-		}
-	}
-	cout << "Encryption: " << encryption << endl;
+    cout << "Enter a message to encrypt: ";
+    cin >> message;
+    
+    for (int i = 0; i < message.length(); i++)
+    {
+        message[i] = tolower(message[i]);
+    }
+    
+    string encryption;
+    for (char letter : message)
+    {
+        encryption += morse[letter];
+        encryption += " ";
+    }
+    cout << "Encryption: " << encryption << endl ;
 }
 
 
+void Decrypt(string code)
+{
+    istringstream scin;
+    string token, decryption;
+    cout << "Enter encrypted message: ";
+    cin.ignore();
+    getline(cin, code);
+    scin.str(code);
+    scin >> token;
+    
+    while (scin)
+    {
+        for (char letter = 32; letter <= 122; letter++)
+        {
+            if (morse[letter] == token){
+                decryption += letter;
+                break;
+            }
+        }
+        scin >> token;    
+    }
+    cout << "Decryption: " << decryption << endl;
+}
 
-// void Decrypt(string word)
-// {
 
-// }
-	
 int main()
 {
-	string word;
-	cout << "Enter a word/sentence to Encrypt: ";
-	getline(cin, word);
-	for (int i = 0; i < word.length(); i++)
-	{
-		word[i] = tolower(word[i]);
-	}
-	Encrypt(word);
+    cout << "Ahlan ya user ya habibi." << endl;
+    int choice;
 
-	
-	return 0;
-	// code: .... . .-.. .-.. ---
-	
+    while (true){   
+        cout << "\nWhat do you like to do today?" << endl
+            << "1- Cipher a message" << endl << "2- Decipher a message" << endl << "3- End" << endl << ">> ";
+
+        cin >> choice;
+
+        if (choice == 1){
+            string message;
+            Encrypt(message);
+            
+        }
+        else if (choice == 2)
+        {
+            string encrypted_messg;
+            Decrypt(encrypted_messg);
+
+        }
+        else if (choice == 3)
+        {
+            cout << "Program ENDED !";
+            return 0;
+        }
+    }
+    
 }
