@@ -13,6 +13,7 @@
 #include <sstream>
 using namespace std;
 
+// Morse Code
 std::map <char, std::string> morse{
     {'a', ".-"}, {'b', "-..."}, {'c', "-.-."}, {'d', "-.."}, {'e', "."}, {'f', "..-."}, {'g', "--."},
     {'h', "...."}, {'i', ".."}, {'j', ".---"}, {'k', "-.-"}, {'l', ".-.."}, {'m', "--"}, {'n', "-."},
@@ -23,39 +24,41 @@ std::map <char, std::string> morse{
     {'?', "..--.."}, {'/', "-..-."}, {'-', "-....-"}, {'(', "-.--."}, {')', "-.--.-"}
 };
 
-
+// Encrypt Function
 void Encrypt(string message)
 {
     cout << "Enter a message to encrypt: ";
     cin.ignore();
-    getline(cin, message);
+    getline(cin, message);   // Take input from user
     
     for (int i = 0; i < message.length(); i++)
     {
-        message[i] = tolower(message[i]);
+        message[i] = tolower(message[i]);   // Converts all the message to lower case
     }
     
-    string encryption;
+    ostringstream encryption{};
     for (auto letter : message)
     {
-        encryption += morse[letter];
-        encryption += " ";
+        encryption << morse[letter] << " ";     // Encryption for each characted, number, or symbol to Morse code
     }
-    cout << "Encryption: " << encryption << endl ;
+
+    cout << "Encryption: " << encryption.str();
 }
 
 
+// Decrypt Function
 void Decrypt(string word)
 {
     int m, size;
     m = 0;
     size = 1;
-    string decryption;
+    ostringstream decryption{};
+
     cout << "Enter encrypted message to decrypt: ";
-    cin.ignore();
+    cin.ignore();       // Get user input
     getline(cin, word);
 
-    for (int j = 0; j < word.length(); j++)
+    for (int j = 0; j < word.length(); j++)     // Determining the number of words in the message
     {
         if (isspace(word[j])){
             if (isspace(word[j+1])){
@@ -72,8 +75,9 @@ void Decrypt(string word)
     
     for (int i = 0; i < word.length(); i++)
     {
+        // Checking if their are three spaces of one space to put a space in the decryption or not
         if (isspace(word[i])){
-            if (isspace(word[i+1])){
+            if (isspace(word[i+1])){   
                 m++;
                 arr[m] += " ";
                 i += 2;
@@ -82,7 +86,7 @@ void Decrypt(string word)
                 m++;}
         }
         else{
-            arr[m] += word[i];
+            arr[m] += word[i];  // If their is no space then it is the same character
         }
     }
     
@@ -90,13 +94,13 @@ void Decrypt(string word)
     {
         for (char letter = 32; letter <= 122; letter++)
         {
-            if (arr[k] == morse[letter]){
-                decryption += letter;
+            if (arr[k] == morse[letter]){       // Decryption of the encrypted message
+                decryption << letter;
                 break;
             }
         }
     }
-    cout << "Decryption: " << decryption << endl;
+    cout << "Decryption: " << decryption.str() << endl;
 }
 
 
