@@ -1,0 +1,22 @@
+Encryption -<
+-> Make a map/dictionary and assign each letter to its code.
+-> Input Message to encrpyt.
+-> Convert all letters to lower case.
+-> for (each character in message) { print the code of the character }.
+
+
+Decryption -<
+-> Make a map/dictionary and assign each letter to its code.
+-> Input encrypted message to decrypt.
+-> Declare an array.
+-> for (dot or dash):
+    if (There is a space):
+        add to new array
+    else:
+        add to the same array 
+-> for (i in range length of the message):
+    if (message[i] is a space):
+        increment the size of the array
+    else:
+        add message[i] to the array[]
+-> for (j in range size of the array) { print the character code of array[j] }
